@@ -12,6 +12,11 @@ dependencies {
 
     // Remove Jakarta Persistence API related warnings
     implementation(libs.jakarta.persistence.api)
+
+    testImplementation(libs.testcontainers.junit.jupiter)
+    testImplementation(libs.testcontainers.postgresql)
+    testImplementation(libs.postgresql)
+    testImplementation("junit:junit:4.13.2")
 }
 
 tasks.getByName<BootJar>("bootJar") {
