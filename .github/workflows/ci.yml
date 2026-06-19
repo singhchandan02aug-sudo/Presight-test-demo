@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main, master, '**']
+  pull_request:
+    branches: [main, master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: '21'
+          distribution: 'temurin'
+
+      - name: Cache Gradle packages
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            gradle-
+
+      - name: Run Gradle tests
+        run: ./gradlew :realworld:test --tests "io.zhc1.realworld.e2e.*" --no-daemon
+
+      - name: Publish test results to job summary
+        uses: dorny/test-reporter@v1
+        if: always()
+        with:
+          name: Test Results
+          path: server/api/build/test-results/test/*.xml
+          reporter: java-junit
+          fail-on-error: false
+
+      - name: Upload HTML test report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: test-report
+          path: server/api/build/reports/tests/test/
+          retention-days: 7

@@ -69,7 +69,6 @@ subprojects {
     )
 
     configurations {
-        all { exclude(group = "junit", module = "junit") }
         compileOnly {
             extendsFrom(configurations.annotationProcessor.get())
         }

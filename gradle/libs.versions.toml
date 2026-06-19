@@ -5,6 +5,8 @@ spotless = "7.0.3"
 spring-boot = "3.3.0"
 spring-dependency-management = "1.1.5"
 spring-boot-p6spy = "1.9.0"
+testcontainers = "1.19.0"
+postgresql = "42.6.0"
 
 [libraries]
 lombok = { group = "org.projectlombok", name = "lombok" }
@@ -22,6 +24,9 @@ spring-boot-starter-oauth2-resource-server = { group = "org.springframework.boot
 spring-boot-starter-p6spy = { group = "com.github.gavlyukovskiy", name = "p6spy-spring-boot-starter", version.ref = "spring-boot-p6spy" }
 
 cache-caffeine = { group = "com.github.ben-manes.caffeine", name = "caffeine" }
+testcontainers-junit-jupiter = { group = "org.testcontainers", name = "junit-jupiter", version.ref = "testcontainers" }
+testcontainers-postgresql = { group = "org.testcontainers", name = "postgresql", version.ref = "testcontainers" }
+postgresql = { group = "org.postgresql", name = "postgresql", version.ref = "postgresql" }
 
 [plugins]
 java = { id = "java" }
